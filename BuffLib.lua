@@ -547,7 +547,7 @@ function UnitBuff(unitID, index, castable)
 	if not name then return name, rank, icon, count, duration, timeLeft, isMine end
 	--local EBFrame = getglobal(name.."_"..UnitGUID(unitID))
 	local EBFrame
-	if BuffLib.guids[UnitGUID(unitID)] then
+	if BuffLib.guids and BuffLib.guids[UnitGUID(unitID)] then
 		EBFrame = BuffLib.guids[UnitGUID(unitID)][name]
 	end
 	
@@ -585,7 +585,7 @@ function UnitDebuff(unitID, index, castable)
 	if not name then return name, rank, icon, count, debuffType, duration, timeLeft, isMine end
 	--local EBFrame = getglobal(name.."_"..UnitGUID(unitID))
 	local EBFrame
-	if BuffLib.guids[UnitGUID(unitID)] then
+	if BuffLib.guids and BuffLib.guids[UnitGUID(unitID)] then
 		EBFrame = BuffLib.guids[UnitGUID(unitID)][name]
 	end
 	
