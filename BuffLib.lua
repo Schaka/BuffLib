@@ -343,8 +343,9 @@ end
 
 function BuffLib:HideFrames(destGUID, spellName, spellID)
 	if self.guids[destGUID] and self.guids[destGUID][spellName] and self.abilities[spellName] then
-		--self.guids[destGUID][spellName].startTime = 0
-		--self.guids[destGUID][spellName].endTime = 0
+		self.guids[destGUID][spellName].startTime = 0
+		self.guids[destGUID][spellName].endTime = 0
+		self.guids[destGUID][spellName].timeLeft = 0
 	end
 end
 
@@ -450,6 +451,10 @@ function BuffLib:COMBAT_LOG_EVENT_UNFILTERED(...)
 			self.guids[destGUID][spellName].lastTime = GetTime() 
 			--log("setting lastTime")
 		end
+	end
+	
+	if eventType == "SPELL_AURA_REMOVED" then
+		self:HideFrames(destGUID, spellName, spellID)
 	end
 	
 end
@@ -562,11 +567,11 @@ function UnitBuff(unitID, index, castable)
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
 		end]]
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then -- can't see timer but someone in party/raid/bg can
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then -- have to load timer from combatlog :(
+	elseif (timeLeft == nil and EBFrame ~=nil) and EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0) then -- have to load timer from combatlog :(
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
@@ -600,11 +605,11 @@ function UnitDebuff(unitID, index, castable)
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
 		end]]
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then
 		duration = EBFrame.duration
-		timeLeft = EBFrame.timeLeft
+		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then
+	elseif (timeLeft == nil and EBFrame ~=nil) and EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0) then
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
