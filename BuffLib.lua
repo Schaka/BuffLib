@@ -571,7 +571,7 @@ function UnitBuff(unitID, index, castable)
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
-	elseif (timeLeft == nil and EBFrame ~=nil) and EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0) then -- have to load timer from combatlog :(
+	elseif (timeLeft == nil and EBFrame ~=nil) and (EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.getTime and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0)) then -- have to load timer from combatlog :(
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
@@ -609,7 +609,7 @@ function UnitDebuff(unitID, index, castable)
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
-	elseif (timeLeft == nil and EBFrame ~=nil) and EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0) then
+	elseif (timeLeft == nil and EBFrame ~=nil) and (EBFrame.timeLeft == nil or (EBFrame.timeLeft ~= nil and EBFrame.getTime and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) <= 0)) then
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
