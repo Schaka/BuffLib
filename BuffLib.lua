@@ -343,12 +343,8 @@ end
 
 function BuffLib:HideFrames(destGUID, spellName, spellID)
 	if self.guids[destGUID] and self.guids[destGUID][spellName] and self.abilities[spellName] then
-		-- combatLog
-		self.guids[destGUID][spellName].startTime = 0
-		self.guids[destGUID][spellName].endTime = 0
-		-- sync
-		self.guids[destGUID][spellName].timeLeft = 0
-		self.guids[destGUID][spellName].getTime = 0
+		--self.guids[destGUID][spellName].startTime = 0
+		--self.guids[destGUID][spellName].endTime = 0
 	end
 end
 
@@ -360,7 +356,7 @@ function BuffLib:PLAYER_ENTERING_WORLD(...)
 	-- clear frames, just to be sure
 	if type(self.guids) == "table" then
 		for k,v in pairs(self.guids) do
-			for ke,va in pairs(self.abilities) do	
+			for ke,va in pairs(self.abilities) do
 				local frame = getglobal(ke.."_"..k)
 				if frame then
 					frame = nil
@@ -456,10 +452,6 @@ function BuffLib:COMBAT_LOG_EVENT_UNFILTERED(...)
 		end
 	end
 	
-	if eventType == "SPELL_AURA_REMOVED" then
-		self:HideFrames(destGUID, spellName, spellID)
-	end
-	
 end
 
 function BuffLib:CHAT_MSG_ADDON(prefix, message, channel, sender)
@@ -518,11 +510,10 @@ function BuffLib:SendSync(message)
 	elseif instanceType == "arena" or instanceType == "party" then
 		SendAddonMessage("BuffLib", message, "PARTY")
 	elseif instanceType == "none" then
-		if UnitGUID("raid1") ~= "" then
-			SendAddonMessage("BuffLib", message, "RAID")
-		end	
 		if UnitGUID("party1") then
 			SendAddonMessage("BuffLib", message, "PARTY")
+		elseif UnitGUID("raid1") then
+			SendAddonMessage("BuffLib", message, "RAID")
 		end
 	end
 	
@@ -561,7 +552,7 @@ function UnitBuff(unitID, index, castable)
 	end
 	
 	
-	if timeLeft ~= nil and unitID ~= "player" then -- can see timer, perfect
+	if timeLeft ~= nil or duration ~=nil then -- can see timer, perfect
 		if unitID ~= "player" then
 			isMine = true
 		else
@@ -571,18 +562,18 @@ function UnitBuff(unitID, index, castable)
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
 		end]]
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then -- can't see timer but someone in party/raid/bg can
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.endTime then -- have to load timer from combatlog :(
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then -- have to load timer from combatlog :(
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
 	end
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
-		duration = nil
+		--duration = nil
 		log(name.." resetting timeLeft "..unitID)
 	end	
 	
@@ -599,7 +590,7 @@ function UnitDebuff(unitID, index, castable)
 	end
 	
 	
-	if timeLeft ~= nil then
+	if timeLeft ~= nil or duration =~nil then
 		if unitID ~= "player" then
 			isMine = true
 		else
@@ -609,18 +600,18 @@ function UnitDebuff(unitID, index, castable)
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
 			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
 		end]]
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
 		duration = EBFrame.duration
-		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
+		timeLeft = EBFrame.timeLeft
 		isMine = false
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.endTime then
+	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
 	end
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
-		duration = nil
+		--duration = nil
 		log(name.." resetting timeLeft "..unitID)
 	end	
 	

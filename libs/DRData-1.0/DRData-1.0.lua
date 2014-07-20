@@ -111,7 +111,7 @@ Data.spells = {
 	[30414] = "ctrlstun",
 	
 	-- Impact
-	[12355] = "rndstun",
+	[12355] = "ctrlstun",
 	
 	-- Gnaw (Ghoul)
 	[47481] = "ctrlstun",
@@ -219,6 +219,7 @@ Data.spells = {
 	[47860] = "dc",
 
 	-- Kidney Shot
+	[408] = "ks",
 	[8643] = "ks",
 	
 	-- Mind Control
