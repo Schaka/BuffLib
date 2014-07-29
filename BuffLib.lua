@@ -482,6 +482,21 @@ function BuffLib:CHAT_MSG_ADDON(prefix, message, channel, sender)
 		if TargetFrame:IsVisible() and guid == UnitGUID("target") then
 			TargetDebuffButton_Update()
 		end
+		
+		
+		if XPerl_Target and XPerl_Target:IsVisible() and guid == UnitGUID("target") then
+			XPerl_Targets_BuffUpdate(getglobal("XPerl_Target"))
+			XPerl_Target_DebuffUpdate(getglobal("XPerl_Target"))
+		end
+		if XPerl_Focus and XPerl_Focus:IsVisible() and guid == UnitGUID("focus") then
+			XPerl_Targets_BuffUpdate(getglobal("XPerl_Focus"))
+			XPerl_Target_DebuffUpdate(getglobal("XPerl_Focus"))
+		end
+		for i=1,GetNumPartyMembers() do
+			if guid == UnitGUID("party"..i) and XPerl_Target then
+				XPerl_Party_Buff_UpdateAll(getglobal("XPerl_party"..i))
+			end
+		end
 	end
 end
 
@@ -590,7 +605,7 @@ function UnitDebuff(unitID, index, castable)
 	end
 	
 	
-	if timeLeft ~= nil or duration =~nil then
+	if timeLeft ~= nil or duration ~= nil then
 		if unitID ~= "player" then
 			isMine = true
 		else
