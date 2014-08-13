@@ -213,7 +213,7 @@ local abilityIDs = {
         [5116] = 4, -- Concussive Shot
         [19185] = 4, -- Entrapment
 };
-BuffLibDebug = 0
+BuffLibDebug = 1
 BuffLibDB = BuffLibDB or { sync = true}
 local function log(msg)
 	if BuffLibDebug == 1 then
@@ -484,8 +484,8 @@ function BuffLib:CHAT_MSG_ADDON(prefix, message, channel, sender)
 			TargetDebuffButton_Update()
 		end
 		
-		
-		if XPerl_Target and XPerl_Target:IsVisible() and guid == UnitGUID("target") then
+		-- code below can only be used if these functions are made global
+		--[[if XPerl_Target and XPerl_Target:IsVisible() and guid == UnitGUID("target") then
 			XPerl_Targets_BuffUpdate(getglobal("XPerl_Target"))
 			XPerl_Target_DebuffUpdate(getglobal("XPerl_Target"))
 		end
@@ -497,7 +497,7 @@ function BuffLib:CHAT_MSG_ADDON(prefix, message, channel, sender)
 			if guid == UnitGUID("party"..i) and XPerl_Target then
 				XPerl_Party_Buff_UpdateAll(getglobal("XPerl_party"..i))
 			end
-		end
+		end]]
 	end
 end
 
@@ -567,6 +567,7 @@ function UnitBuff(unitID, index, castable)
 		EBFrame = BuffLib.guids[UnitGUID(unitID)][name]
 	end
 	
+	-- if duration can be seen by the player (provided by the server) return original duration and end function here
 	if timeLeft ~= nil or duration ~=nil then -- can see timer, perfect
 		if unitID ~= "player" then
 			isMine = true
@@ -574,11 +575,15 @@ function UnitBuff(unitID, index, castable)
 			isMine = false
 		end
 		return name, rank, icon, count, duration, timeLeft, isMine
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
+	end	
+	
+	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
+		log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then -- have to load timer from combatlog :(
+		log(name.. " reading from combatlog")
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
@@ -609,11 +614,15 @@ function UnitDebuff(unitID, index, castable)
 			isMine = false
 		end
 		return name, rank, icon, count, debuffType, duration, timeLeft, isMine
-	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
+	end	
+	
+	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
+		log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft
 		isMine = false
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then
+		log(name.. " reading from combatlog")
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
