@@ -362,6 +362,7 @@ function BuffLib:PLAYER_ENTERING_WORLD(...)
 					frame = nil
 				end
 			end
+			self.guids[k]=nil
 		end
 	end
 	
@@ -566,17 +567,13 @@ function UnitBuff(unitID, index, castable)
 		EBFrame = BuffLib.guids[UnitGUID(unitID)][name]
 	end
 	
-	
 	if timeLeft ~= nil or duration ~=nil then -- can see timer, perfect
 		if unitID ~= "player" then
 			isMine = true
 		else
 			isMine = false
 		end
-		--[[if BuffLibDB.sync == true then
-			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
-			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
-		end]]
+		return name, rank, icon, count, duration, timeLeft, isMine
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
@@ -586,12 +583,12 @@ function UnitBuff(unitID, index, castable)
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
 	end
+
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
-		--duration = nil
+		duration = nil
 		log(name.." resetting timeLeft "..unitID)
 	end	
-	
 	return name, rank, icon, count, duration, timeLeft, isMine
 end
 
@@ -611,10 +608,7 @@ function UnitDebuff(unitID, index, castable)
 		else
 			isMine = false
 		end
-		--[[if BuffLibDB.sync == true then
-			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "RAID")
-			SendAddonMessage("BuffLib", UnitGUID(unitID)..","..name..","..duration..","..timeLeft, "BATTLEGROUND")
-		end]]
+		return name, rank, icon, count, debuffType, duration, timeLeft, isMine
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft
@@ -624,9 +618,10 @@ function UnitDebuff(unitID, index, castable)
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
 	end
+	
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
-		--duration = nil
+		duration = nil
 		log(name.." resetting timeLeft "..unitID)
 	end	
 	
