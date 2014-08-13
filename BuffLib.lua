@@ -343,8 +343,12 @@ end
 
 function BuffLib:HideFrames(destGUID, spellName, spellID)
 	if self.guids[destGUID] and self.guids[destGUID][spellName] and self.abilities[spellName] then
-		--self.guids[destGUID][spellName].startTime = 0
-		--self.guids[destGUID][spellName].endTime = 0
+		-- combatLog
+		self.guids[destGUID][spellName].startTime = 0
+		self.guids[destGUID][spellName].endTime = 0
+		-- sync
+		self.guids[destGUID][spellName].timeLeft = 0
+		self.guids[destGUID][spellName].getTime = 0
 	end
 end
 
@@ -577,7 +581,7 @@ function UnitBuff(unitID, index, castable)
 		return name, rank, icon, count, duration, timeLeft, isMine
 	end	
 	
-	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then -- can't see timer but someone in party/raid/bg can
+	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then -- can't see timer but someone in party/raid/bg can
 		log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
@@ -616,7 +620,7 @@ function UnitDebuff(unitID, index, castable)
 		return name, rank, icon, count, debuffType, duration, timeLeft, isMine
 	end	
 	
-	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil then
+	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then
 		log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft
