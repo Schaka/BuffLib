@@ -488,6 +488,10 @@ function BuffLib:CHAT_MSG_ADDON(prefix, message, channel, sender)
 			TargetDebuffButton_Update()
 		end
 		
+		if FocusFrame and FocusFrame:IsVisible() and guid == UnitGUID("focus") then
+			FocusDebuffButton_Update()
+		end
+		
 		-- code below can only be used if these functions are made global
 		--[[if XPerl_Target and XPerl_Target:IsVisible() and guid == UnitGUID("target") then
 			XPerl_Targets_BuffUpdate(getglobal("XPerl_Target"))
