@@ -627,7 +627,7 @@ function UnitDebuff(unitID, index, castable)
 	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then
 		log(name.. " reading from snyc")
 		duration = EBFrame.duration
-		timeLeft = EBFrame.timeLeft
+		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then
 		log(name.. " reading from combatlog")
