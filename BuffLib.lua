@@ -378,8 +378,8 @@ function BuffLib:PLAYER_ENTERING_WORLD(...)
 	
 	DRLib = LibStub("DRData-1.0")
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	self:RegisterEvent("CHAT_MSG_ADDON")
 	if BuffLibDB.sync == true then
-		self:RegisterEvent("CHAT_MSG_ADDON")
 		self:RegisterEvent("UNIT_AURA")
 	end
 	
