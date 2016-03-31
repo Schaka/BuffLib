@@ -25,9 +25,6 @@ Data.spells = {
 	-- Gouge
 	[1776] = "disorient",
 		
-	-- Hex (Guessing)
-	[51514] = "disorient",
-
 	-- Polymorph
 	[118] = "disorient",
 	[12824] = "disorient",
@@ -197,9 +194,6 @@ Data.spells = {
 	[44046] = "chastise",
 	[44047] = "chastise",
 
-	-- Scatter Shot
-	[19503] = "scatters",
-	
 	-- Freezing Trap
 	[3355] = "freezetrap",
 	[14308] = "freezetrap",
@@ -218,10 +212,6 @@ Data.spells = {
 	[47859] = "dc",
 	[47860] = "dc",
 
-	-- Kidney Shot
-	[408] = "ks",
-	[8643] = "ks",
-	
 	-- Mind Control
 	[605] = "charm",
 	[10911] = "charm",
@@ -235,9 +225,7 @@ Data.typeNames = {
 	["ctrlstun"] = "Controlled Stuns",
 	["rndstun"] = "Random Stuns",
 	["cyclone"] = "Cyclone/Blind",
-	["ks"] = "Kidney Shot",
 	["chastise"] = "Chastise",
-	["scatters"] = "Scatter Shot",
 	["freezetrap"] = "Freeze Trap",
 	["rndroot"]  = "Random Roots",
 	["dc"] = "Death Coil",
@@ -249,7 +237,6 @@ Data.typeNames = {
 
 -- Categories that have DR in PvE as well as PvP
 Data.pveDRs = {
-	["ks"] = true,
 	["ctrlstun"] = true,
 	["rndstun"] = true,
 	["cyclone"] = true,

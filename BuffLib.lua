@@ -1,218 +1,3 @@
-local abilityIDs = { 
--- MISC & Racials ---------------------
-		[11196] = 60, -- Recently Bandaged
-		[44055] = 15, -- Battlemaster (1750 HP)
-		[19305] = 15, -- Starshards
-		[2651] = 15, -- Elune's Grace
-		[25467] = 24, -- Devouring Plague
-		[20600] = 20, -- Perception
-		[33697] = 15, -- Blood Fury
-		[20594] = 8, -- Stoneform
-		[28880] = 15, -- Gift of the Naaru
-		[26296] = 10, -- Berserking
-		[43716] = 20, -- Call of the Berserker ( Berserker's Call buff )
-		[7744] = 5, -- Will of the Forsaken
-       
--- Rogue ------------------------------
--- Defensive
-        [45182] = 3, -- Cheat Death
-        [31224] = 5, -- Cloak of Shadows
-        [26669] = 15, -- Evasion
-        [11305] = 15, -- Sprint
-       
--- Offensive
-        [13750] = 15, -- Adrenaline Rush
-        [14278] = 7, -- Ghostly Strike dodge buff
-        [13877] = 15, -- Blade Flurry
-        [8647] = 30, -- Expose Armor
-        [26679] = 6, -- Deadly Throw
-        [703] = 18, -- Garrote bleed
-		[1330] = 3, -- Garrote - Silence
-       
--- CC
-        [1833] = 4, -- Cheap Shot
-        [8643] = 6, -- Kidney Shot
-        [1776] = 4, -- Gouge
-        [2094] = 10, -- Blind
-        [6770] = 10, -- Sap
- 
--- Poisons
-        [13220] = 15, -- Wound Poison
-        [11400] = 10, -- Mind-Numbing Poison III
-        [3420] = 12, -- Crippling Poison
-        [2835] = 12, -- Deadly Poison
-       
--- Druid -------------------------------
--- Defensive
-        [22812] = 12, -- Barkskin
-        [29166] = 20, -- Innervate
-        [16689] = 45, -- Nature's Grasp
-        [22842] = 10, -- Frenzied Regeneration
- 
--- Healing
-        [33763] = 7, -- Lifebloom
-        [26980] = 21, -- Regrowth
-        [26982] = 12, -- Rejuvenation
-        [14253] = 8, -- Abolish Poison
- 
--- Offensive
-        [26993] = 40, -- Fairie Fire
-        [27011] = 40, -- Fairie Fire (Feral)
-        [5570] = 12, -- Insect Swarm
-        [8921] = 12, -- Moonfire
-        [33745] = 15, -- Lacerate
-        [9007] = 18, -- Pounce Bleed
-       
--- CC
-        [33786] = 6, -- Cyclone
-        [26989] = 10, -- Roots
-        [2637] = 10, -- Hibernate
-        [5211] = 5, -- Bash
-        [22570] = 5, -- Maim (4p 5s)
-        [9005] = 3, -- Pounce stun
-       
--- Warrior ------------------------------
--- Offensive
-        [12292] = 30, -- Death Wish
-        [11597] = 30, -- Sunder Armor
-        [18499] = 10, -- Berserker Rage
-        [12294] = 10, -- Mortal Strike
-        [1715] = 10, -- Hamstring
-        [772] = 21, -- Rend
-        [20230] = 15, -- Retaliation
-        [1719] = 15, -- Recklessness
-        [871] = 10, -- Shield Wall
-        [12323] = 6, -- Piercing Howl
-        [25274] = 3, -- Intercept Stun
-        [5530] = 3, -- Mace Stun Effect
-       
--- Defensive
-        [3411] = 10, -- Intervene
-        [23920] = 5, -- Spell Reflection
-        [676] = 10, -- Disarm
-        [12975] = 20, -- Last Stand
-       
--- CC
-        [5246] = 8, -- Intimidating Shout
-        [12809] = 5, -- Concussion Blow
- 
--- Shaman -------------------------------
--- Offensive
-        [32182] = 40, -- Heroism
-        [2825] = 40, -- Bloodlust
-        [8050] = 12, -- Flame Shock
-        [8056] = 6, -- Frost Shock
- 
--- Defensive
-        [30823] = 15, -- Shamanistic Rage
- 
--- Priest -------------------------------
--- Offensive
-        [10060] = 15, -- Power Infusion
-        [25368] = 18, -- Shadow Word: Pain
-        [8122] = 8, -- Psychic Scream
-        [15487] = 5, -- Silence
-        [34917] = 15, -- Vampiric Touch
-        [44047] = 2, -- Chastise
-       
--- Defensive
-        [27607] = 30, -- Power Word: Shield
-        [6788] = 13, -- Weakened Soul
-        [33206] = 8, -- Pain Suppression
-        [6346] = 180, -- Fear Ward
- 
--- Healing
-        [33076] = 30, -- Prayer of Mending (needs a hack because duration is 10 after first jump)
-        [139] = 15, -- Renew
- 
--- Paladin -------------------------------
--- Offensive
-        [31884] = 20, -- Avenging Wrath
-        [853] = 6, -- Hammer of Justice
-        [20066] = 6, -- Repentance
-        [25771] = 60, -- Forbearance
- 
--- Defensive
-        [1044] = 14, -- Blessing of Freedom
-        [1020] = 12, -- Divine Shield
-        [27148] = 30, -- Blessing of Sacrifice
-        [10278] = 10, -- Blessing of Protection
-        [31842] = 15, -- Divine Illumination
- 
--- Mage ----------------------------------
--- Offensive
-        [133] = 8, -- Fireball debuff
-        [120] = 8, -- Cone of Cold
-        [12472] = 20, -- Icy Veins
-        [116] = 9, -- Frostbolt debuff
-        [2139] = 4, --Counterspell
-        [12042] = 15, -- Arcane Power
-        [31589] = 15, -- Slow
-		[18469] = 4, -- Counterspell - Silenced
-		[33043] = 4, -- Dragon's Breath
-		[33395] = 8, -- Freeze (Watelemental)
-       
--- Defensive
-        [45438] = 10, -- Ice Block
-        [12051] = 8, -- Evocation
-        [66] = 5, -- Invisibilty fade
-        [41425] = 30, -- Hypothermia
-        [11426] = 60, -- Ice Barriers
- 
--- CC
-        [118] = 10, -- Poly
-        [28272] = 10, -- Poly Pig
-        [28271] = 10, -- Poly Turtle
-        [27088] = 8, -- Frostnova
-		[12494] = 5, -- Frostbite
- 
--- Warlock --------------------------------
--- Offensive
-        [172] = 18, -- Corruption
-        [980] = 24, -- Curse of Agony
-        [27243] = 18, -- Seed of Corruption
-        [348] = 15, -- Immolate
-        [18265] = 30, -- Siphon Life
-        [27223] = 3, -- Death Coil
-        [24259] = 3, -- Spell Lock
- 
--- Defensive
-        [18708] = 15, -- Fel Domination
- 
--- CC
-        [1714] = 6, -- Curse of Tongues
-        [5782] = 10, -- Fear
-        [5484] = 8, -- Howl of Terror
-        [710] = 10, -- Banish
- 
--- Hunter ---------------------------------
--- Offensive
-        [27065] = 10, -- Aimed Shot    
-        [19574] = 18, -- Bestial Wrath
-        [38373] = 18, -- The Beast Within
-        [27018] = 8, -- Viper Sting
-        [1978] = 15, -- Serpent Sting
-        [3045] = 15, -- Rapid Fire
-        [13813] = 20, -- Explosive Trap
-        [13795] = 15, -- Immolation Trap
-        [19577] = 3, -- Intimidation
-       
--- Defensive
-        [19263] = 10, -- Deterrence
- 
--- CC
-        [14309] = 10, -- Freezing Trap Effect
-        [13810] = 30, -- Frost Trap Aura
-        [14326] = 10, -- Scare Beast
-        [2974] = 10, -- Wing Clip
-        [19386] = 12, -- Wyvern Sting
-        [19503] = 4, -- Scatter Shot
-        [34490] = 3, -- Silencing Shot
-        [19229] = 5, -- Improved Wing Clip
-        [19410] = 3, -- Improved Concussive Shot
-        [5116] = 4, -- Concussive Shot
-        [19185] = 4, -- Entrapment
-};
 BuffLibDebug = 0
 BuffLibDB = BuffLibDB or { sync = true}
 local function log(msg)
@@ -225,6 +10,21 @@ end -- alias for convenience
 
 local DR_RESET_TIME = 15
 local DRLib
+
+local logDelay = 0.05
+
+local applyEvents = {
+	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_REFRESH",
+	"SPELL_AURA_APPLIED_DOSE",
+	"SPELL_CAST_SUCCESS",
+}
+
+local removeEvents = {
+	"SPELL_AURA_REMOVE",
+	"SPELL_AURA_DISPEL",
+	"SPELL_AURA_STOLEN",
+}
 
 local _UnitBuff = UnitBuff
 local _UnitDebuff = UnitDebuff
@@ -265,11 +65,12 @@ function BuffLib:InitDR(destGUID, spellID, event)
 		elseif tracked and tracked.reset <= GetTime() then -- reset DR because timer ran out
 			tracked.diminished = 1.0
 			tracked.reset = 99999999
-			--log(DR_RESET_TIME.." seconds DR timer ran out, resetting "..drCat)
-		--AURA_REMOVE - start timer and DR duration (maybe also on AURA_REFRESH?)
+			tracked.lastDR = 0
+			log(DR_RESET_TIME.." seconds DR timer ran out, resetting "..drCat)
 		elseif event == "SPELL_AURA_REMOVED" then
 			tracked.reset = GetTime() + DR_RESET_TIME
-			--log("start "..DR_RESET_TIME.." seconds DR timer")
+			tracked.lastDR = 0
+			log("start "..DR_RESET_TIME.." seconds DR timer "..GetSpellInfo(spellID))
 		end	
 	end
 	
@@ -281,14 +82,11 @@ function BuffLib:NextDR(destGUID, spellID, event)
 	if self.guids[destGUID] then
 		drCat = DRLib:GetSpellCategory(spellID)
 		tracked = self.guids[destGUID][drCat]
-		if tracked then
-			diminished = tracked.diminished
-		end
 	end
 	if tracked and tracked.lastDR+0.5 <= GetTime() then
 		tracked.diminished = DRLib:NextDR(tracked.diminished)
 		tracked.lastDR = GetTime()
-		--log("next DR: "..GetSpellInfo(spellID).. "  "..drCat)
+		log("next DR: "..GetSpellInfo(spellID).. "  "..drCat)
 	end
 end
 
@@ -317,7 +115,7 @@ function BuffLib:CreateFrames(destGUID, spellName, spellID)
 		self.guids[destGUID][spellName].startTime = GetTime()
 		self.guids[destGUID][spellName].endTime = self.abilities[spellName]*diminished
 		
-		log(spellName.."  "..self.abilities[spellName]*diminished.." CreateFrames")
+		--log(spellName.."  "..self.abilities[spellName]*diminished.." CreateFrames")
 	end
 end
 
@@ -337,7 +135,7 @@ function BuffLib:UpdateFrames(destGUID, spellName, spellID)
 		self.guids[destGUID][spellName].startTime = GetTime()
 		self.guids[destGUID][spellName].endTime = self.abilities[spellName]*diminished
 		
-		log(spellName.."  "..self.abilities[spellName]*diminished.." UpdateFrames")
+		--log(spellName.."  "..self.abilities[spellName]*diminished.." UpdateFrames")
 	end
 end
 
@@ -372,7 +170,7 @@ function BuffLib:PLAYER_ENTERING_WORLD(...)
 	
 	self.guids = {}
 	self.abilities = {}
-	for k,v in pairs(abilityIDs) do
+	for k,v in pairs(BuffLibabilityIDs) do
 		self.abilities[GetSpellInfo(k)]=v;
 	end
 	
@@ -385,26 +183,16 @@ function BuffLib:PLAYER_ENTERING_WORLD(...)
 	
 end
 
-local logDelay = 0.05
-
-local applyEvents = {
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REFRESH",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_CAST_SUCCESS",
-}
-
-local removeEvents = {
-	"SPELL_AURA_REMOVE",
-	"SPELL_AURA_DISPEL",
-	"SPELL_AURA_STOLEN",
-}
-
+--[[
+	first: initialize DR with 1.0 (full duration), if timestamp older than 15 seconds, reset to 1.0
+	next: AFTER calculating spell duration, divide DR by 2 (0.5, 0.25, ...) IF a CC is applied
+	next: on REMOVE, set a timestamp as "DR timer"
+--]]
 function BuffLib:COMBAT_LOG_EVENT_UNFILTERED(...)
 	local timestamp, eventType, sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags,spellID,spellName,spellSchool,auraType = select ( 1 , ... );
 	
 	-- DR can be applied by all spells, therefore outside of self.abilities[name]
-	if eventType == "SPELL_AURA_APPLIED" or eventType == "SPELL_AURA_REFRESH" or eventType == "SPELL_AURA_REMOVED" then
+	if eventType == "SPELL_AURA_APPLIED" or eventType == "SPELL_AURA_REFRESH" or eventType == "SPELL_AURA_REMOVED" or (eventType == "SPELL_CAST_SUCCESS" and spellSchool == "0x1") then
 		self:InitDR(destGUID, spellID, eventType)
 	end
 	
@@ -447,9 +235,11 @@ function BuffLib:COMBAT_LOG_EVENT_UNFILTERED(...)
 		end	
 	end
 
-	-- timer of last update on this spell, this is to ensure that multiple combatlog events will not overwrite the current timer
-	-- for example CAST_SUCCESS and AURA_APPLIED fire at the SAME time (or virtually same time)
-	-- only do this for spells which can actually DR - anything else doesn't matter
+	--[[
+		timer of last update on this spell, this is to ensure that multiple combatlog events will not overwrite the current timer
+		for example CAST_SUCCESS and AURA_APPLIED fire at the SAME time (or virtually same time)
+		only do this for spells which can actually DR - anything else doesn't matter
+	--]]
 	if self.abilities[spellName] and DRLib:GetSpellCategory(spellID) then
 		if self.guids[destGUID] and self.guids[destGUID][spellName] and eventType ~= "SPELL_AURA_REMOVE" then
 			self.guids[destGUID][spellName].lastTime = GetTime() 
@@ -586,12 +376,12 @@ function UnitBuff(unitID, index, castable)
 	end	
 	
 	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then -- can't see timer but someone in party/raid/bg can
-		log(name.. " reading from snyc")
+		--log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then -- have to load timer from combatlog :(
-		log(name.. " reading from combatlog")
+		--log(name.. " reading from combatlog")
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false		
@@ -600,7 +390,7 @@ function UnitBuff(unitID, index, castable)
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
 		duration = nil
-		log(name.." resetting timeLeft "..unitID)
+		--log(name.." resetting timeLeft "..unitID)
 	end	
 	return name, rank, icon, count, duration, timeLeft, isMine
 end
@@ -625,12 +415,12 @@ function UnitDebuff(unitID, index, castable)
 	end	
 	
 	if timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft ~= nil and EBFrame.timeLeft-(GetTime()-EBFrame.getTime) > 0 then
-		log(name.. " reading from snyc")
+		--log(name.. " reading from snyc")
 		duration = EBFrame.duration
 		timeLeft = EBFrame.timeLeft-(GetTime()-EBFrame.getTime)
 		isMine = false
 	elseif timeLeft == nil and EBFrame ~=nil and EBFrame.timeLeft == nil then
-		log(name.. " reading from combatlog")
+		--log(name.. " reading from combatlog")
 		duration = EBFrame.endTime
 		timeLeft = EBFrame.endTime-(GetTime()-EBFrame.startTime)
 		isMine = false
@@ -639,7 +429,7 @@ function UnitDebuff(unitID, index, castable)
 	if timeLeft and timeLeft <= 0 then
 		timeLeft = nil
 		duration = nil
-		log(name.." resetting timeLeft "..unitID)
+		--log(name.." resetting timeLeft "..unitID)
 	end	
 	
 	return name, rank, icon, count, debuffType, duration, timeLeft, isMine
