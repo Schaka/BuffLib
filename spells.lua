@@ -1,17 +1,17 @@
 BuffLibabilityIDs = { 
 -- MISC & Racials ---------------------
-		[11196] = 60, -- Recently Bandaged
-		[44055] = 15, -- Battlemaster (1750 HP)
-		[19305] = 15, -- Starshards
-		[2651] = 15, -- Elune's Grace
-		[25467] = 24, -- Devouring Plague
-		[20600] = 20, -- Perception
-		[33697] = 15, -- Blood Fury
-		[20594] = 8, -- Stoneform
-		[28880] = 15, -- Gift of the Naaru
-		[26296] = 10, -- Berserking
-		[43716] = 20, -- Call of the Berserker ( Berserker's Call buff )
-		[7744] = 5, -- Will of the Forsaken
+	[11196] = 60, -- Recently Bandaged
+	[44055] = 15, -- Battlemaster (1750 HP)
+	[19305] = 15, -- Starshards
+	[2651] = 15, -- Elune's Grace
+	[25467] = 24, -- Devouring Plague
+	[20600] = 20, -- Perception
+	[33697] = 15, -- Blood Fury
+	[20594] = 8, -- Stoneform
+	[28880] = 15, -- Gift of the Naaru
+	[26296] = 10, -- Berserking
+	[43716] = 20, -- Call of the Berserker ( Berserker's Call buff )
+	[7744] = 5, -- Will of the Forsaken
        
 -- Rogue ------------------------------
 -- Defensive
@@ -27,7 +27,8 @@ BuffLibabilityIDs = {
         [8647] = 30, -- Expose Armor
         [26679] = 6, -- Deadly Throw
         [703] = 18, -- Garrote bleed
-		[1330] = 3, -- Garrote - Silence
+	[1330] = 3, -- Garrote - Silence
+	[18425] = 2, -- Kick - Silenced
        
 -- CC
         [1833] = 4, -- Cheap Shot
@@ -62,6 +63,7 @@ BuffLibabilityIDs = {
         [8921] = 12, -- Moonfire
         [33745] = 15, -- Lacerate
         [9007] = 18, -- Pounce Bleed
+        [16922] = 3, -- Starfire Stun
        
 -- CC
         [33786] = 6, -- Cyclone
@@ -154,10 +156,10 @@ BuffLibabilityIDs = {
         [2139] = 4, --Counterspell
         [12042] = 15, -- Arcane Power
         [31589] = 15, -- Slow
-		[18469] = 4, -- Counterspell - Silenced
-		[33043] = 4, -- Dragon's Breath
-		[33395] = 8, -- Freeze (Watelemental)
-		[12579] = 15, -- Winter's Chill
+	[18469] = 4, -- Counterspell - Silenced
+	[33043] = 4, -- Dragon's Breath
+	[33395] = 8, -- Freeze (Watelemental)
+	[12579] = 15, -- Winter's Chill
        
 -- Defensive
         [45438] = 10, -- Ice Block
@@ -171,7 +173,7 @@ BuffLibabilityIDs = {
         [28272] = 10, -- Poly Pig
         [28271] = 10, -- Poly Turtle
         [27088] = 8, -- Frostnova
-		[12494] = 5, -- Frostbite
+	[12494] = 5, -- Frostbite
  
 -- Warlock --------------------------------
 -- Offensive
@@ -187,7 +189,7 @@ BuffLibabilityIDs = {
         [18708] = 15, -- Fel Domination
  
 -- CC
-        [1714] = 6, -- Curse of Tongues
+        [1714] = 10, -- Curse of Tongues
         [5782] = 10, -- Fear
         [5484] = 8, -- Howl of Terror
         [710] = 10, -- Banish
